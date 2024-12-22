@@ -14,7 +14,7 @@ package frc.robot;
  */
 public final class Constants {
   public final class Subsystems {
-    public final class DriveConstants {
+    public final class Drive {
       public final static int LEFT_MASTER_TALONSRX_ID = 1;
       public final static int LEFT_SLAVE_TALONSRX_ID = 2;
 
@@ -24,5 +24,7 @@ public final class Constants {
   }
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
+
+    public static final DriveEnum driveEnum = DriveEnum.DIFFERENTIAL; 
   }
 }

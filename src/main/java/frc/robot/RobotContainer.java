@@ -15,9 +15,17 @@ public class RobotContainer {
   private final XboxController xboxController = new XboxController(Constants.OperatorConstants.kDriverControllerPort);
 
   public RobotContainer() {
-    // Fuck it just comment one of theese out based on what you wonna drive idk how to do this properly.
-    this.driveSubsystem.setDefaultCommand(new DiffrentialDriveCommand(xboxController));
+    // Yotam you gonna hate me for the swith case but fuck it itll be funny.
+    switch (Constants.OperatorConstants.driveEnum) {
+      case DIFFERENTIAL:
+        this.driveSubsystem.setDefaultCommand(new DiffrentialDriveCommand(xboxController));
+        break;
+      case TANK:
+        this.driveSubsystem.setDefaultCommand(new DriveCommand(xboxController));
+        break;
+      default:
+        throw new IllegalStateException("Unexpected value: " + Constants.OperatorConstants.driveEnum);
+    }
+}
 
-    // this.driveSubsystem.setDefaultCommand(new DriveCommand(xboxController));
-  }
 }

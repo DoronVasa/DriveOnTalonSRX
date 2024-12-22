@@ -7,14 +7,14 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.Subsystems.DriveConstants;;
+import frc.robot.Constants.Subsystems.Drive;
 
 public class DriveSubsystem extends SubsystemBase {
-  private final TalonSRX leftSideMaster = new TalonSRX(DriveConstants.LEFT_MASTER_TALONSRX_ID);
-  private final TalonSRX leftSideSlave = new TalonSRX(DriveConstants.LEFT_SLAVE_TALONSRX_ID);
+  private final TalonSRX leftSideMaster = new TalonSRX(Drive.LEFT_MASTER_TALONSRX_ID);
+  private final TalonSRX leftSideSlave = new TalonSRX(Drive.LEFT_SLAVE_TALONSRX_ID);
 
-  private final TalonSRX rightSideMaster = new TalonSRX(DriveConstants.RIGHT_MASTER_TALONSRX_ID);
-  private final TalonSRX rightSideSlave = new TalonSRX(DriveConstants.RIGHT_SLAVE_TALONSRX_ID);
+  private final TalonSRX rightSideMaster = new TalonSRX(Drive.RIGHT_MASTER_TALONSRX_ID);
+  private final TalonSRX rightSideSlave = new TalonSRX(Drive.RIGHT_SLAVE_TALONSRX_ID);
   
   public DriveSubsystem() {
     leftSideSlave.follow(leftSideMaster);
@@ -23,12 +23,12 @@ public class DriveSubsystem extends SubsystemBase {
     rightSideMaster.setInverted(true);
   }
 
-  public void MoveWithJoystick(double leftJoy, double rightJoy){
+  public void moveWithJoystick(double leftJoy, double rightJoy){
     leftSideMaster.set(ControlMode.PercentOutput, leftJoy);
     rightSideMaster.set(ControlMode.PercentOutput, rightJoy);
   }
 
-  public void MoveWithDifferentioal(double leftJoy, double rightJoy){
+  public void moveWithDifferentioal(double leftJoy, double rightJoy){
     double steeringDiffrential = leftJoy * 0.75 * rightJoy;
 
     if (steeringDiffrential < 0){
@@ -39,5 +39,10 @@ public class DriveSubsystem extends SubsystemBase {
         leftSideMaster.set(ControlMode.PercentOutput, leftJoy);
         rightSideMaster.set(ControlMode.PercentOutput, leftJoy - steeringDiffrential);
     }
+  }
+
+  public void stopMotors(){
+    leftSideMaster.set(ControlMode.PercentOutput, 0);
+    rightSideMaster.set(ControlMode.PercentOutput, 0);
   }
 }
